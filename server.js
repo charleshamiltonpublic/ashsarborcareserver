@@ -9,8 +9,9 @@ const PORT = process.env.PORT || 8080;
 
 const routes = require('./routes/api');
 
-const MONGODB_URI='mongodb+srv://ashton:bggV7NmKFhy4w0je@cluster0.xy54i.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-mongoose.connect(process.env.MONGODB_URI || MONGODB_URI, {
+// const MONGODB_URI=''
+// mongoose.connect(process.env.MONGODB_URI || MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
