@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 //Schema
 const Schema = mongoose.Schema;
-const BlogPostSchema = new Schema({
-    title: String,
+const emailQuoteSchema = new Schema({
+    email: String,
     body: String,
     date: {
         type: String,
@@ -11,6 +11,6 @@ const BlogPostSchema = new Schema({
 });
 
 //Model
-const BlogPost = mongoose.model('Blogpost', BlogPostSchema);
+const BlogPost = mongoose.model('emailQuote', emailQuoteSchema);
 
 module.exports = BlogPost;

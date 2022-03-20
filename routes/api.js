@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const BlogPost = require('../models/blogPost');
+const emailQuote = require('../models/emailQuote');
 require("dotenv").config();
 const nodemailer = require('nodemailer');
 const {google} = require('googleapis');
@@ -46,7 +46,7 @@ async function sendMail(subject, text) {
 
 
 router.get('/', (req, res) => {
-    BlogPost.find({ })
+    emailQuote.find({ })
         .then((data) => {
             console.log('Data: ', data);
             res.json(data);
@@ -60,16 +60,16 @@ router.get('/', (req, res) => {
 router.post('/save', (req, res) => {
     console.log('Body: ', req.body);
     const data = req.body;
-    sendMail(data.title, data.body)
+    sendMail(data.email, data.body)
         .then((result) => console.log('Email sent...', result))
         .catch((error) => console.log(error.message));
-    const newBlogPost = new BlogPost(data);
-    newBlogPost.save((error) => {
+    const newEmailQuote = new emailQuote(data);
+    newEmailQuote.save((error) => {
         if(error) {
             res.status(500).json({msg: 'Sorry, internal server error'});
             return;
         }
-            //BlogPost
+            //emailQuote
             return res.json({
             msg: 'Your data has been saved!!!'
             });  
