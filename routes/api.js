@@ -15,7 +15,7 @@ const TO_EMAIL = process.env.TO_EMAIL;
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
 
-async function sendMail() {
+async function sendMail(subject, text) {
     try {
         const accessToken = await oAuth2Client.getAccessToken()
 
@@ -33,9 +33,9 @@ async function sendMail() {
         const mailOptions = {
             from: FROM_EMAIL,
             to: TO_EMAIL,
-            subject: 'hello from gmail using API',
-            text: 'Hello from gmail email using API',
-            html: '<h1>Hello from gmail email using API</h1>'
+            subject: subject,
+            text: text,
+            html: '<h1>' + text + '</h1>'
         };
         const result = transport.sendMail(mailOptions);
         return result;
@@ -46,9 +46,6 @@ async function sendMail() {
 
 
 router.get('/', (req, res) => {
-    sendMail()
-        .then((result) => console.log('Email sent...', result))
-        .catch((error) => console.log(error.message));
     BlogPost.find({ })
         .then((data) => {
             console.log('Data: ', data);
@@ -63,6 +60,9 @@ router.get('/', (req, res) => {
 router.post('/save', (req, res) => {
     console.log('Body: ', req.body);
     const data = req.body;
+    sendMail(data.title, data.body)
+        .then((result) => console.log('Email sent...', result))
+        .catch((error) => console.log(error.message));
     const newBlogPost = new BlogPost(data);
     newBlogPost.save((error) => {
         if(error) {
