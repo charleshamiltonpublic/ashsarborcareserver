@@ -1,1 +1,5 @@
-
+- This is the server side of the offical website for Ash's Arbor Care
+- It uses MongoDB as a backend database
+- It uses GCP Gmail API
+- The backend API is hosted on Heroku here: https://asharbor-server.herokuapp.com/
+- The React frontend is hosted on Netlify here:  https://www.ashsarborcare.com/
